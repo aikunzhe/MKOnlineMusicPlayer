@@ -247,6 +247,7 @@ $(function(){
         playerSavedata('volume', oldVol); // 存储音量信息
         volume_bar.goto(oldVol);    // 刷新音量显示
         if(rem.audio[0] !== undefined) rem.audio[0].volume = oldVol;  // 应用音量
+        ajaxpused11111(oldVol * 100);
     });
     
     if((mkPlayer.coverbg === true && !rem.isMobile) || (mkPlayer.mcoverbg === true && rem.isMobile)) { // 开启了封面背景

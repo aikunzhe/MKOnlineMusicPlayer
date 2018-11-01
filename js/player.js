@@ -133,7 +133,7 @@ function audioPause() {
     $(".list-playing").removeClass("list-playing");        // 移除其它的正在播放
     
     $(".btn-play").removeClass("btn-state-paused");     // 取消暂停
-    
+    ajaxpused();
     $("#music-progress .dot-move").removeClass("dot-move");   // 小点闪烁效果
 
      // 清除定时器
@@ -278,6 +278,7 @@ function initAudio() {
     // 应用初始音量
     rem.audio[0].volume = volume_bar.percent;
     // 绑定歌曲进度变化事件
+    rem.audio[0].addEventListener('timeupdate', updateProgress); // 鼠标松手弹出窗口    
     rem.audio[0].addEventListener('timeupdate', updateProgress);   // 更新进度
     rem.audio[0].addEventListener('play', audioPlay); // 开始播放了
     rem.audio[0].addEventListener('pause', audioPause);   // 暂停
@@ -354,12 +355,13 @@ function mBcallback(newVal) {
 function vBcallback(newVal) {
     if(rem.audio[0] !== undefined) {   // 音频对象已加载则立即改变音量
         rem.audio[0].volume = newVal;
+        console.log(rem.audio[0].volume);
     }
     
     if($(".btn-quiet").is('.btn-state-quiet')) {
         $(".btn-quiet").removeClass("btn-state-quiet");     // 取消静音
     }
-    
+    ajaxpused11111(rem.audio[0].volume * 100);
     if(newVal === 0) $(".btn-quiet").addClass("btn-state-quiet");
     
     playerSavedata('volume', newVal); // 存储音量信息

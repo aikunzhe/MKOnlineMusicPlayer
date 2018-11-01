@@ -392,3 +392,29 @@ function ajaxUserList(uid)
     });//ajax
     return true;
 }
+
+
+// 暂停
+function ajaxpused() {
+    $.ajax({
+        type: mkPlayer.method,
+        url: mkPlayer.api,
+        data: "types=close",
+        dataType: "jsonp",
+        
+    }); //ajax
+}
+// 调节音量
+function ajaxpused11111(volume) {
+    $.ajax({
+        type: mkPlayer.method,
+        url: mkPlayer.api,
+        data: "types=volume&volume=" + volume,
+        dataType: "jsonp",
+
+    }); //ajax
+}
+
+
+
+

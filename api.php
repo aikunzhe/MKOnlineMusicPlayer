@@ -65,8 +65,15 @@ switch($types)   // 根据请求的 Api，执行相应操作
         $data = $API->url($id);
         
         echojson($data);
+        shell_play($data);
         break;
-        
+    case 'close':
+          close_play();
+           break;     
+    case 'volume':
+          volume();
+           break;   
+
     case 'pic':   // 获取歌曲链接
         $id = getParam('id');  // 歌曲ID
         
@@ -223,8 +230,28 @@ function echojson($data)    //json和jsonp通用
     
     if($callback) //输出jsonp格式
     {
-        die(htmlspecialchars($callback).'('.$data.')');
+        echo(htmlspecialchars($callback).'('.$data.')');
     } else {
-        die($data);
+        echo($data);
     }
+}
+
+
+
+function shell_play($data){
+        $paly_url = json_decode($data,1);
+        $paly_url = $paly_url['url'];
+        // print_r($paly_url);die;
+        system('pkill play');
+        pclose(popen('export DISPLAY=:0 && /usr/bin/play '.$paly_url.' &', 'r'));  
+}
+function close_play(){
+        system('pkill play');
+}
+
+function volume()
+{
+    $volume = getParam('volume');
+    print_r($volume );
+    system('amixer -q sset PCM '.$volume.'%');
 }
